@@ -7,7 +7,7 @@ async function main() {
   }
   const vsSourcePath = "basic.vs";
   const fsSourcePath = "basic.fs";
-  var shader1 = new Shader(gl, vsSourcePath, fsSourcePath);
+  var shader1 = await new Shader(gl, vsSourcePath, fsSourcePath);
 
   var positionAttributeLocation = gl.getAttribLocation(shader1.programID, "a_position");
   var positionBuffer = gl.createBuffer();
