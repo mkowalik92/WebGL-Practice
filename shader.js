@@ -5,11 +5,13 @@ class Shader {
       var vertexShader = this.createShader(glContext, glContext.VERTEX_SHADER, await this.fetchSourceFileContents(vsSourcePath));
       var fragmentShader = this.createShader(glContext, glContext.FRAGMENT_SHADER, await this.fetchSourceFileContents(fsSourcePath));
       this.programID = this.createProgram(glContext, vertexShader, fragmentShader);
-      console.log(this.programID);
       return this;
     })();
   }
 
+  // Slow and asynchronous
+  // Better to have in a string or in html
+  // Maybe a script with only strings containging shader source code
   async fetchSourceFileContents(filename) {
     let response = await fetch(filename);
     let text = await response.text();

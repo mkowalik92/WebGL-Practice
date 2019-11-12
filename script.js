@@ -1,3 +1,6 @@
+const vsSourcePath = "basic.vs";
+const fsSourcePath = "basic.fs";
+
 async function main() {
   const canvas = document.getElementById("canvas");
   const gl = canvas.getContext("webgl");
@@ -5,20 +8,17 @@ async function main() {
     alert("Unable to initialize WebGL. Your browser or machine may not support it.");
     return;
   }
-  const vsSourcePath = "basic.vs";
-  const fsSourcePath = "basic.fs";
+
   var shader1 = await new Shader(gl, vsSourcePath, fsSourcePath);
 
   var positionAttributeLocation = gl.getAttribLocation(shader1.programID, "a_position");
   var positionBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
   var positions = [
-    0.0, -1.0,
-    0.0, 1.0,
-    0.4, 0.0,
-    0.0, -1.0,
-    0.0, 1.0,
-    -0.4, 0.0
+    -1.0,  1.0,
+     1.0,  1.0,
+    -1.0, -1.0,
+     1.0, -1.0
   ];
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
 
@@ -39,9 +39,9 @@ async function main() {
   var offset = 0;
   gl.vertexAttribPointer(positionAttributeLocation, size, type, normalize, stride, offset);
 
-  var primitiveType = gl.TRIANGLES;
+  var primitiveType = gl.TRIANGLE_STRIP;
   var offset = 0;
-  var count = 6;
+  var count = 4;
   gl.drawArrays(primitiveType, offset, count);
 }
 
